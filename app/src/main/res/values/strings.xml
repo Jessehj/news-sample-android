@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">NewsSample</string>
+    <string name="title_headlines">Top-Headlines</string>
+    <string name="title_sources">News Sources</string>
 </resources>
