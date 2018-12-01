@@ -9,5 +9,5 @@ import com.google.gson.reflect.TypeToken
 
 
 object ModelUtils {
-    inline fun <reified T> parseJson(json: String): T? = Gson().fromJson<T>(json, object : TypeToken<T>() {}.type)
+    inline fun <reified T> parseJson(json: String): T = Gson().fromJson<T>(json, object : TypeToken<T>() {}.type)
 }
