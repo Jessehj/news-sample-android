@@ -1,9 +1,6 @@
 package jessehj.newssample.network.apis
 
-import jessehj.newssample.AppConstants
-import jessehj.newssample.AppConstants.Article.articles
-import jessehj.newssample.entity.article.Article
-import jessehj.newssample.entity.filter.ArticleFilter
+import jessehj.newssample.base.AppConstants
 import jessehj.newssample.entity.filter.SourceFilter
 import jessehj.newssample.entity.source.Source
 import org.junit.Assert

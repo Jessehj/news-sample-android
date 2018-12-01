@@ -2,13 +2,13 @@ package jessehj.newssample.network.apis
 
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
-import jessehj.newssample.AppConstants
+import jessehj.newssample.base.AppConstants
 import jessehj.newssample.BuildConfig
 import jessehj.newssample.entity.article.Article
 import jessehj.newssample.entity.filter.ArticleFilter
 import jessehj.newssample.network.RetrofitClient
 import jessehj.newssample.network.RetrofitService
-import jessehj.newssample.utils.ModelUtils
+import jessehj.newssample.util.ModelUtils
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.QueryMap
@@ -39,22 +39,26 @@ interface ArticleAPI {
             }
 
             RetrofitService<JsonObject>().request(api.getTopHeadlines(params),
-                    object : RetrofitService.Completion {
-                        override fun onSuccess(response: Any?) {
-                            if (response is JsonObject) {
-                                val articlesJson = response.get(AppConstants.Article.articles) as JsonArray
-                                val articles = ModelUtils.parseJson<MutableList<Article>>(articlesJson.toString())
+                object : RetrofitService.Completion {
+                    override fun onSuccess(response: Any?) {
+                        if (response is JsonObject) {
+                            val articlesJson =
+                                response.get(AppConstants.Article.articles) as JsonArray
+                            val articles =
+                                ModelUtils.parseJson<MutableList<Article>>(articlesJson.toString())?.let {
+                                    it
+                                } ?: mutableListOf()
 
-                                completion.onSuccess(articles)
-                            } else {
-                                completion.onError(Error("Response Error"))
-                            }
+                            completion.onSuccess(articles)
+                        } else {
+                            completion.onError(Error("Response Error"))
                         }
+                    }
 
-                        override fun onError(error: Error) {
-                            completion.onError(error)
-                        }
-                    })
+                    override fun onError(error: Error) {
+                        completion.onError(error)
+                    }
+                })
         }
     }
 }

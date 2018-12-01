@@ -1,4 +1,4 @@
-package jessehj.newssample
+package jessehj.newssample.base
 
 /**
  * Created by jessehj on 01/12/2018.
@@ -32,6 +32,7 @@ object AppConstants {
     object Source {
         const val uri = "sources"
         const val sources = "sources"
+        const val source = "source"
         const val id = "id"
         const val name = "name"
         const val description = "description"
@@ -47,11 +48,14 @@ object AppConstants {
         const val country = "country"
     }
 
-
-
     object CountryCode {
         const val kr = "kr"
         const val us = "us"
+    }
+
+    object Date {
+        const val FORMAT_DEFAULT = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+        const val FORMAT_SIMPLE = "yyyy-MM-dd"
     }
 
     enum class Category(val tag: String, val value: String) {

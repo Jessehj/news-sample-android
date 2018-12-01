@@ -1,6 +1,6 @@
 package jessehj.newssample.network
 
-import jessehj.newssample.AppConstants
+import jessehj.newssample.base.AppConstants
 import jessehj.newssample.BuildConfig
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient

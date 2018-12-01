@@ -2,13 +2,13 @@ package jessehj.newssample.network.apis
 
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
-import jessehj.newssample.AppConstants
+import jessehj.newssample.base.AppConstants
 import jessehj.newssample.BuildConfig
 import jessehj.newssample.entity.filter.SourceFilter
 import jessehj.newssample.entity.source.Source
 import jessehj.newssample.network.RetrofitClient
 import jessehj.newssample.network.RetrofitService
-import jessehj.newssample.utils.ModelUtils
+import jessehj.newssample.util.ModelUtils
 import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.QueryMap
@@ -41,7 +41,9 @@ interface SourceAPI {
                         override fun onSuccess(response: Any?) {
                             if (response is JsonObject) {
                                 val sourcesJson = response.get(AppConstants.Source.sources) as JsonArray
-                                val sources = ModelUtils.parseJson<MutableList<Source>>(sourcesJson.toString())
+                                val sources = ModelUtils.parseJson<MutableList<Source>>(sourcesJson.toString())?.let {
+                                    it
+                                } ?: mutableListOf()
 
                                 completion.onSuccess(sources)
                             } else {

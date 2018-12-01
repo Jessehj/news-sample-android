@@ -1,6 +1,7 @@
-package jessehj.newssample
+package jessehj.newssample.base
 
 import android.app.Application
+import jessehj.newssample.BuildConfig
 import timber.log.Timber
 
 /**

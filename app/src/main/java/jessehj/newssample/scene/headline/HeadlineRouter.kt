@@ -1,11 +1,12 @@
 package jessehj.newssample.scene.headline
 
 import android.content.Intent
+import android.net.Uri
 import java.lang.ref.WeakReference
 
 
 interface HeadlineRoutingLogic {
-    fun navigateToSomewhere(): Intent
+    fun navigateToArticleDetail()
 }
 
 class HeadlineRouter : HeadlineRoutingLogic {
@@ -13,8 +14,11 @@ class HeadlineRouter : HeadlineRoutingLogic {
     lateinit var activity: WeakReference<HeadlineActivity>
     lateinit var dataStore: HeadlineDataStore
 
-    override fun navigateToSomewhere(): Intent {
-        val intent = Intent()
-        return intent
+    override fun navigateToArticleDetail() {
+        dataStore.detailUrl()?.apply {
+            val uri = Uri.parse(this)
+            val intent = Intent(Intent.ACTION_VIEW, uri)
+            activity.get()?.startActivity(intent)
+        }
     }
 }

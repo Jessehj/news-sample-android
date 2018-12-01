@@ -5,7 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import jessehj.newssample.R
 import jessehj.newssample.scene.BaseActivity
-import kotlinx.android.synthetic.main.view_footer_layout.*
+import kotlinx.android.synthetic.main.activity_source.*
 import kotlinx.android.synthetic.main.view_toolbar_layout.*
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.noAnimation

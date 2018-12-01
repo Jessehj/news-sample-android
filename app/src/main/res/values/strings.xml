@@ -2,4 +2,11 @@
     <string name="app_name">NewsSample</string>
     <string name="title_headlines">Top-Headlines</string>
     <string name="title_sources">News Sources</string>
+
+    <string name="msg_data_not_found">No Results...</string>
+
+    <string name="title_moment_ago">Moment ago</string>
+    <string name="format_hours_ago">%1$d hours ago</string>
+    <string name="format_mins_ago">%1$d minutes ago</string>
+    <string name="format_secs_ago">%1$d seconds ago</string>
 </resources>

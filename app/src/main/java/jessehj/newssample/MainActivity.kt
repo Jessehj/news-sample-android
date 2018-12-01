@@ -1,10 +1,7 @@
 package jessehj.newssample
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import jessehj.newssample.entity.article.Article
-import jessehj.newssample.entity.filter.ArticleFilter
-import jessehj.newssample.network.apis.ArticleAPI
+import android.support.v7.app.AppCompatActivity
 
 class MainActivity : AppCompatActivity() {
 
