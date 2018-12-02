@@ -1,6 +1,6 @@
 package jessehj.newssample.base
 
-import android.app.Application
+import android.support.multidex.MultiDexApplication
 import jessehj.newssample.BuildConfig
 import timber.log.Timber
 
@@ -9,7 +9,7 @@ import timber.log.Timber
  */
 
 
-class BaseApplication : Application() {
+class BaseApplication : MultiDexApplication() {
 
     override fun onCreate() {
         super.onCreate()

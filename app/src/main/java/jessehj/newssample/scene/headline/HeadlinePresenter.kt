@@ -10,6 +10,7 @@ interface HeadlinePresentationLogic {
     fun refreshComplete()
     fun presentError(errMsg: String)
     fun routeToArticleDetail()
+    fun dismissProgress()
 }
 
 class HeadlinePresenter : HeadlinePresentationLogic {
@@ -49,5 +50,9 @@ class HeadlinePresenter : HeadlinePresentationLogic {
 
     override fun routeToArticleDetail() {
         activity.get()?.routeToArticleDetail()
+    }
+
+    override fun dismissProgress() {
+        activity.get()?.dismissProgress()
     }
 }

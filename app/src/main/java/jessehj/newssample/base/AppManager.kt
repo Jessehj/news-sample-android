@@ -21,5 +21,15 @@ object AppManager {
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
         sharedPreferences.edit().putString(ARTICLE_FILTER, filterJson).apply()
     }
+
+    fun getSourceFilter(context: Context): String {
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+        return sharedPreferences.getString(SOURCE_FILTER, "")!!
+    }
+
+    fun setSourceFilter(context: Context, filterJson: String) {
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+        sharedPreferences.edit().putString(SOURCE_FILTER, filterJson).apply()
+    }
 }
 

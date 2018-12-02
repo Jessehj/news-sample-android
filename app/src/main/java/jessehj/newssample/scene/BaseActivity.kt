@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
+import android.view.View
+import com.airbnb.lottie.LottieAnimationView
 import jessehj.newssample.R
 import jessehj.newssample.scene.headline.HeadlineActivity
 import jessehj.newssample.scene.headline.headlineIntent
@@ -80,6 +82,21 @@ abstract class BaseActivity : AppCompatActivity() {
         }
     }
 
+    fun configLoadingProgress(view: LottieAnimationView, enabled: Boolean) {
+        view.apply {
+            if (enabled) {
+                visibility = View.VISIBLE
+                if (!isAnimating) {
+                    playAnimation()
+                }
+            } else {
+                visibility = View.GONE
+                if (isAnimating) {
+                    cancelAnimation()
+                }
+            }
+        }
+    }
     private fun contextIndex(context: Context): Int {
         return when (context) {
             is HeadlineActivity -> INDEX_HEADLINES
@@ -87,5 +104,4 @@ abstract class BaseActivity : AppCompatActivity() {
             else -> INDEX_HEADLINES
         }
     }
-
 }

@@ -12,18 +12,42 @@
         android:id="@+id/toolbarLayout"
         layout="@layout/view_toolbar_layout"/>
 
-    <android.support.design.widget.CoordinatorLayout
+    <FrameLayout
         android:id="@+id/bodyLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:orientation="vertical"
+        android:background="@color/colorGrayLight"
         app:layout_constraintBottom_toTopOf="@+id/bottomNavigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbarLayout">
 
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/loadingView"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:layout_gravity="center"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="newspaper_animation.json"
+            app:lottie_loop="true"/>
 
-    </android.support.design.widget.CoordinatorLayout>
+        <TextView
+            android:id="@+id/emptyTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/msg_data_not_found"
+            android:textColor="@color/colorGrayDark"
+            android:textSize="20sp"
+            android:visibility="gone"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/sourceRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/list_item_source"/>
+
+    </FrameLayout>
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottomNavigation"

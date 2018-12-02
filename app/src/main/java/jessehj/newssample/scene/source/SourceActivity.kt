@@ -3,10 +3,14 @@ package jessehj.newssample.scene.source
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.support.v7.widget.GridLayoutManager
+import android.view.View
 import jessehj.newssample.R
 import jessehj.newssample.scene.BaseActivity
+import jessehj.newssample.scene.adapter.SourceAdapter
 import kotlinx.android.synthetic.main.activity_source.*
 import kotlinx.android.synthetic.main.view_toolbar_layout.*
+import org.jetbrains.anko.design.longSnackbar
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.noAnimation
 
@@ -16,6 +20,10 @@ fun Context.sourceIntent(): Intent {
 
 interface SourceDisplayLogic {
     fun displaySourceData(viewModel: Source.SourceData.ViewModel)
+    fun displayError(errMsg: String)
+    fun displayProress()
+    fun dismissProgress()
+
 }
 
 class SourceActivity : BaseActivity(), SourceDisplayLogic {
@@ -30,12 +38,20 @@ class SourceActivity : BaseActivity(), SourceDisplayLogic {
 
         configViews()
 
+        fetchFilterData()
         fetchSourceData()
     }
 
     override fun onStart() {
         super.onStart()
         updateBottomMenu(this@SourceActivity, bottomNavigation)
+    }
+
+    fun fetchFilterData() {
+        Source.FilterData.Request().apply {
+            context = this@SourceActivity
+            interactor.fetchFilterData(this)
+        }
     }
 
     fun fetchSourceData() {
@@ -45,7 +61,23 @@ class SourceActivity : BaseActivity(), SourceDisplayLogic {
         }
     }
 
+    fun fetchDetailData(position: Int) {
+        Source.DetailData.Request().apply {
+            context = this@SourceActivity
+            this.position = position
+            interactor.fetchDetailData(this)
+        }
+    }
+
     private fun configViews() {
+        val layoutManager = GridLayoutManager(this@SourceActivity, 2)
+        sourceRecyclerView.apply {
+            this.layoutManager = layoutManager
+            this.adapter = SourceAdapter {
+                // TODO Click action
+            }
+        }
+
         // Header:
         toolbar.setTitle(R.string.title_sources)
         configToolbar(toolbar, false, true)
@@ -54,6 +86,25 @@ class SourceActivity : BaseActivity(), SourceDisplayLogic {
     }
 
     override fun displaySourceData(viewModel: Source.SourceData.ViewModel) {
+        if (viewModel.viewModels.isEmpty()) {
+            sourceRecyclerView.visibility = View.GONE
+            emptyTextView.visibility = View.VISIBLE
+        } else {
+            sourceRecyclerView.visibility = View.VISIBLE
+            emptyTextView.visibility = View.GONE
+            (sourceRecyclerView.adapter as SourceAdapter).updateData(viewModel.viewModels)
+        }
+    }
 
+    override fun displayError(errMsg: String) {
+        longSnackbar(rootLayout, errMsg)
+    }
+
+    override fun displayProress() {
+        configLoadingProgress(loadingView, true)
+    }
+
+    override fun dismissProgress() {
+        configLoadingProgress(loadingView, false)
     }
 }

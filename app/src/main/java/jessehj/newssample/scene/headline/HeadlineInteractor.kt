@@ -57,11 +57,14 @@ class HeadlineInteractor : HeadlineBusinessLogic {
                         refresh = request.refresh
                         presenter.presentHeadlineData(this)
                     }
+
+                    presenter.dismissProgress()
                 }
 
                 override fun onError(error: Error) {
                     presenter.refreshComplete()
                     presenter.presentError(error.localizedMessage)
+                    presenter.dismissProgress()
                 }
             })
     }

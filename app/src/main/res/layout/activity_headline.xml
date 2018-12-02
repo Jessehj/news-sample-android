@@ -26,6 +26,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/loadingView"
+                android:layout_width="160dp"
+                android:layout_height="160dp"
+                android:layout_gravity="center"
+                app:lottie_autoPlay="true"
+                app:lottie_fileName="newspaper_animation.json"
+                app:lottie_loop="true"/>
+
             <TextView
                 android:id="@+id/emptyTextView"
                 android:layout_width="wrap_content"
@@ -43,7 +52,6 @@
                 tools:listitem="@layout/list_item_article"/>
 
         </FrameLayout>
-
 
     </android.support.v4.widget.SwipeRefreshLayout>
 

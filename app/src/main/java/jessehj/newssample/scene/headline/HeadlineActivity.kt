@@ -21,6 +21,8 @@ fun Context.headlineIntent(): Intent {
 
 interface HeadlineDisplayLogic {
     fun displayHeadlineData(viewModel: Headline.HeadlineData.ViewModel)
+    fun displayProgress()
+    fun dismissProgress()
     fun setPagingEnabled(enabled: Boolean)
     fun refreshComplete()
     fun displayError(errMsg: String)
@@ -40,6 +42,7 @@ class HeadlineActivity : BaseActivity(), HeadlineDisplayLogic {
 
         configViews()
 
+        displayProgress()
         fetchFilterData()
         fetchHeadlineData(true)
     }
@@ -124,5 +127,13 @@ class HeadlineActivity : BaseActivity(), HeadlineDisplayLogic {
 
     override fun routeToArticleDetail() {
         router.navigateToArticleDetail()
+    }
+
+    override fun displayProgress() {
+        configLoadingProgress(loadingView, true)
+    }
+
+    override fun dismissProgress() {
+        configLoadingProgress(loadingView, false)
     }
 }
