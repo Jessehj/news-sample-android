@@ -8,4 +8,9 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="ToolbarStyleDark" parent="ThemeOverlay.MaterialComponents.Dark">
+        <item name="colorControlNormal">@color/colorWhiteLight</item>
+        <item name="android:background">@color/colorPrimary</item>
+    </style>
+
 </resources>

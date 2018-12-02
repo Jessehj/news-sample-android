@@ -10,7 +10,6 @@ import jessehj.newssample.scene.BaseActivity
 import jessehj.newssample.scene.adapter.ArticleAdapter
 import jessehj.newssample.util.PaginationListener
 import kotlinx.android.synthetic.main.activity_headline.*
-import kotlinx.android.synthetic.main.view_toolbar_layout.*
 import org.jetbrains.anko.design.longSnackbar
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.noAnimation
@@ -96,7 +95,6 @@ class HeadlineActivity : BaseActivity(), HeadlineDisplayLogic {
         }
 
         // Header:
-        toolbar.setTitle(R.string.title_headlines)
         configToolbar(toolbar, false, true)
         // Footer:
         configBottomNavigation(this@HeadlineActivity, bottomNavigation)

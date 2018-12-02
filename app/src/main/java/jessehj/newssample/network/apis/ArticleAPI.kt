@@ -2,8 +2,8 @@ package jessehj.newssample.network.apis
 
 import com.google.gson.JsonArray
 import com.google.gson.JsonObject
-import jessehj.newssample.base.AppConstants
 import jessehj.newssample.BuildConfig
+import jessehj.newssample.base.AppConstants
 import jessehj.newssample.entity.article.Article
 import jessehj.newssample.entity.filter.ArticleFilter
 import jessehj.newssample.network.RetrofitClient

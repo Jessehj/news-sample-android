@@ -9,7 +9,6 @@ import jessehj.newssample.R
 import jessehj.newssample.scene.BaseActivity
 import jessehj.newssample.scene.adapter.SourceAdapter
 import kotlinx.android.synthetic.main.activity_source.*
-import kotlinx.android.synthetic.main.view_toolbar_layout.*
 import org.jetbrains.anko.design.longSnackbar
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.noAnimation
@@ -79,7 +78,6 @@ class SourceActivity : BaseActivity(), SourceDisplayLogic {
         }
 
         // Header:
-        toolbar.setTitle(R.string.title_sources)
         configToolbar(toolbar, false, true)
         // Footer:
         configBottomNavigation(this@SourceActivity, bottomNavigation)
