@@ -36,12 +36,31 @@
                 app:layout_scrollFlags="scroll|enterAlways"
                 app:titleEnabled="false">
 
-                <Button
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:text="test"/>
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:padding="8dp">
+
+                    <ImageView
+                        android:layout_width="32dp"
+                        android:layout_height="32dp"
+                        android:src="@drawable/ic_search"/>
+
+                    <EditText
+                        android:id="@+id/searchEditText"
+                        style="@style/EditTextStylePrimary"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:layout_weight="1"
+                        android:hint="@string/title_hint_search"
+                        android:imeOptions="actionSearch"
+                        android:inputType="text"/>
+
+                </LinearLayout>
 
             </android.support.design.widget.CollapsingToolbarLayout>
 

@@ -12,6 +12,7 @@ class Headline {
         class Request {
             lateinit var context: Context
             var refresh = false
+            var keyword: String? = null
         }
 
         class Response {

@@ -8,6 +8,5 @@ import jessehj.newssample.base.AppConstants
 
 data class ArticleFilter(
     var category: AppConstants.Category? = null,
-    var country: AppConstants.Country? = AppConstants.Country.Korea,
-    var q: String? = null
+    var country: AppConstants.Country? = AppConstants.Country.Korea
 )

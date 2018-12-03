@@ -13,4 +13,11 @@
         <item name="android:background">@color/colorPrimary</item>
     </style>
 
+    <style name="EditTextStylePrimary" parent="Base.Widget.AppCompat.EditText">
+        <item name="android:textColor">@color/colorBlackDark</item>
+        <item name="android:textColorHint">@color/colorGray</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:background">@null</item>
+    </style>
+
 </resources>

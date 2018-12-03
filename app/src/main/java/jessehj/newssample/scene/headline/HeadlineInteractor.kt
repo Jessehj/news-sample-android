@@ -39,6 +39,7 @@ class HeadlineInteractor : HeadlineBusinessLogic {
         presenter.setPagingEnabled(false)
         ArticleAPI.loadTopHeadlines(
             curPage,
+            request.keyword,
             articleFilter,
             object : ArticleAPI.TopHeadlinesCompletion {
                 override fun onSuccess(articles: MutableList<Article>) {

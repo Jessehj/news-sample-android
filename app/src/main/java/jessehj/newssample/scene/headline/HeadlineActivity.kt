@@ -9,6 +9,7 @@ import jessehj.newssample.R
 import jessehj.newssample.scene.BaseActivity
 import jessehj.newssample.scene.adapter.ArticleAdapter
 import jessehj.newssample.util.PaginationListener
+import jessehj.newssample.util.SimpleTextWatcher
 import kotlinx.android.synthetic.main.activity_headline.*
 import org.jetbrains.anko.design.longSnackbar
 import org.jetbrains.anko.intentFor
@@ -43,7 +44,7 @@ class HeadlineActivity : BaseActivity(), HeadlineDisplayLogic {
 
         displayProgress()
         fetchFilterData()
-        fetchHeadlineData(true)
+        fetchHeadlineData(true, null)
     }
 
     override fun onStart() {
@@ -58,10 +59,11 @@ class HeadlineActivity : BaseActivity(), HeadlineDisplayLogic {
         }
     }
 
-    fun fetchHeadlineData(refresh: Boolean) {
+    fun fetchHeadlineData(refresh: Boolean, keyword: String?) {
         Headline.HeadlineData.Request().apply {
             context = this@HeadlineActivity
             this.refresh = refresh
+            this.keyword = keyword
             interactor.fetchHeadlineData(this)
         }
     }
@@ -78,12 +80,12 @@ class HeadlineActivity : BaseActivity(), HeadlineDisplayLogic {
         val layoutManager = LinearLayoutManager(this@HeadlineActivity)
         paginationListener = object : PaginationListener(layoutManager) {
             override fun onLoadMore() {
-                fetchHeadlineData(false)
+                fetchHeadlineData(false, searchEditText.text.toString())
             }
         }
 
         refreshLayout.setOnRefreshListener {
-            fetchHeadlineData(true)
+            fetchHeadlineData(true, searchEditText.text.toString())
         }
 
         articleRecyclerView.apply {
@@ -93,6 +95,12 @@ class HeadlineActivity : BaseActivity(), HeadlineDisplayLogic {
                 fetchDetailData(it)
             }
         }
+
+        searchEditText.addTextChangedListener(object: SimpleTextWatcher() {
+            override fun onTextChanged(inputted: String) {
+                fetchHeadlineData(true, inputted)
+            }
+        })
 
         // Header:
         configToolbar(toolbar, false, true)

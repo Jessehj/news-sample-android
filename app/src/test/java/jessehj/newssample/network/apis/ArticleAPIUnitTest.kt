@@ -24,10 +24,9 @@ class ArticleAPIUnitTest {
     fun articleAPI_loadTopHeadlines_with_Korean() {
         val filter = ArticleFilter(
             null,
-            AppConstants.Country.Korea,
-            null
+            AppConstants.Country.Korea
         )
-        ArticleAPI.loadTopHeadlines(1, filter, object : ArticleAPI.TopHeadlinesCompletion {
+        ArticleAPI.loadTopHeadlines(1, null, filter, object : ArticleAPI.TopHeadlinesCompletion {
             override fun onSuccess(articles: MutableList<Article>) {
                 Assert.assertNotNull(articles)
             }
@@ -42,10 +41,9 @@ class ArticleAPIUnitTest {
     fun articleAPI_loadTopHeadlines_dataNotFound_shouldReturn_emptyList() {
         val filter = ArticleFilter(
             null,
-            AppConstants.Country.Korea,
-            "a#s!d@f"
+            AppConstants.Country.Korea
         )
-        ArticleAPI.loadTopHeadlines(1, filter, object : ArticleAPI.TopHeadlinesCompletion {
+        ArticleAPI.loadTopHeadlines(1, "a#s!d@f", filter, object : ArticleAPI.TopHeadlinesCompletion {
             override fun onSuccess(articles: MutableList<Article>) {
                 Assert.assertTrue(articles.isEmpty())
             }

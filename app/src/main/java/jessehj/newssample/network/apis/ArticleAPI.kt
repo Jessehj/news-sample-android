@@ -29,13 +29,13 @@ interface ArticleAPI {
     companion object {
         private val api = RetrofitClient.get().create(ArticleAPI::class.java)
 
-        fun loadTopHeadlines(page: Int, filter: ArticleFilter, completion: TopHeadlinesCompletion) {
+        fun loadTopHeadlines(page: Int, q: String?, filter: ArticleFilter, completion: TopHeadlinesCompletion) {
             val params = mutableMapOf<String, String>()
             params[AppConstants.Commons.page] = page.toString()
+            q?.let { params[AppConstants.Commons.q] = it }
             filter.apply {
                 this.category?.value?.let { params[AppConstants.Headline.category] = it }
                 this.country?.value?.let { params[AppConstants.Headline.country] = it }
-                this.q?.let { params[AppConstants.Commons.q] = it }
             }
 
             RetrofitService<JsonObject>().request(api.getTopHeadlines(params),

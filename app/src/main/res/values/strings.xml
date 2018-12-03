@@ -2,11 +2,20 @@
     <string name="app_name">NewsSample</string>
     <string name="title_headlines">Top-Headlines</string>
     <string name="title_sources">News Sources</string>
-
+    <string name="title_all">All</string>
+    <string name="title_business">Business</string>
+    <string name="title_entertainment">Entertainment</string>
+    <string name="title_general">General</string>
+    <string name="title_health">Health</string>
+    <string name="title_science">Science</string>
+    <string name="title_sports">Sports</string>
+    <string name="title_technology">Technology</string>
+    <string name="title_hint_search">Input search keywords</string>
     <string name="msg_data_not_found">No Results...</string>
 
     <string name="title_moment_ago">Moment ago</string>
     <string name="format_hours_ago">%1$d hours ago</string>
     <string name="format_mins_ago">%1$d minutes ago</string>
     <string name="format_secs_ago">%1$d seconds ago</string>
+
 </resources>
