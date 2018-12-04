@@ -4,8 +4,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
+import com.squareup.picasso.Picasso
 import jessehj.newssample.R
 import jessehj.newssample.entity.source.SourceViewModel
 import kotlinx.android.synthetic.main.list_item_source.view.*
@@ -31,13 +30,10 @@ class SourceAdapter(private val onItemClick: (Int) -> Unit) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val viewModel = itemViewModels[position]
         holder.itemView.apply {
-            RequestOptions().apply {
-                placeholder(R.drawable.news_placeholder)
-                    .error(R.drawable.news_placeholder)
-
-                Glide.with(context).setDefaultRequestOptions(this)
-                    .load(viewModel.imgPath).into(sourceImageView)
-            }
+            Picasso.get().load(viewModel.imgPath)
+                .placeholder(R.drawable.news_placeholder)
+                .error(R.drawable.news_placeholder)
+                .into(sourceImageView)
 
             nameTextView.text = viewModel.name
             contentTextView.text = viewModel.content

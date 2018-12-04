@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
+import android.view.MenuItem
 import android.view.View
 import com.airbnb.lottie.LottieAnimationView
 import jessehj.newssample.R
@@ -35,8 +36,18 @@ abstract class BaseActivity : AppCompatActivity() {
         overridePendingTransition(0, 0)
     }
 
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        return when (item?.itemId) {
+            android.R.id.home -> {
+                finish()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
     fun configToolbar(toolbar: Toolbar) {
-        configToolbar(toolbar, false, false)
+        configToolbar(toolbar, true, false)
     }
 
     fun configToolbar(toolbar: Toolbar, homeButtonEnabled: Boolean, titleEnabled: Boolean) {
@@ -97,6 +108,7 @@ abstract class BaseActivity : AppCompatActivity() {
             }
         }
     }
+
     private fun contextIndex(context: Context): Int {
         return when (context) {
             is HeadlineActivity -> INDEX_HEADLINES

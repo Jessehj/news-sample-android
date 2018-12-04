@@ -1,9 +1,11 @@
 package jessehj.newssample.util
 
 import android.content.Context
+import android.webkit.URLUtil
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import jessehj.newssample.R
+import jessehj.newssample.base.AppConstants
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -193,6 +195,48 @@ object ModelUtils {
             "ynet" -> R.drawable.ynet
             else -> R.drawable.news_placeholder
         }
+    }
+
+    fun validUrl(url: String?): String? {
+        url?.let {
+            if (URLUtil.isValidUrl(it)) {
+                return it
+            }
+        }
+        return null
+    }
+
+    fun authorComb(srcName: String?, author: String?): String {
+
+        var result = srcName?.let { it } ?: ""
+
+        author?.let {
+            if (result.isEmpty()) {
+                result = it
+            } else {
+                result += " - $it"
+            }
+        }
+
+        return result
+    }
+
+    fun articleDate(context: Context, dateString: String?): String {
+        dateString?.let {
+            val date = convertStringToDate(AppConstants.Date.FORMAT_DEFAULT, it)
+            date?.let { date ->
+                val dateSecs: Long = date.time / 1000
+                val curSecs: Long = System.currentTimeMillis() / 1000
+                val pastSecs = (curSecs - dateSecs)
+
+                return ModelUtils.pastTime(context, pastSecs.toInt())?.let { result ->
+                    result
+                } ?: run {
+                    ModelUtils.convertDateToString(AppConstants.Date.FORMAT_SIMPLE, date)
+                }
+            }
+        }
+        return ""
     }
 
 }

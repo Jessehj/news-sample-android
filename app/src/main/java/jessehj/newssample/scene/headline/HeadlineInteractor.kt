@@ -1,5 +1,6 @@
 package jessehj.newssample.scene.headline
 
+import com.google.gson.Gson
 import jessehj.newssample.base.AppManager
 import jessehj.newssample.entity.article.Article
 import jessehj.newssample.entity.filter.ArticleFilter
@@ -18,7 +19,7 @@ interface HeadlineDataPassing {
 }
 
 interface HeadlineDataStore {
-    fun detailUrl(): String?
+    fun articleJson(): String
 }
 
 class HeadlineInteractor : HeadlineBusinessLogic {
@@ -28,9 +29,15 @@ class HeadlineInteractor : HeadlineBusinessLogic {
     private var articleFilter = ArticleFilter()
     private var articles = mutableListOf<Article>()
     private var curPage = 1
-    private var url: String? = null
+    private lateinit var selectedArticle: Article
 
-    override fun detailUrl(): String? = url
+    override fun articleJson(): String {
+        return if (::selectedArticle.isInitialized) {
+            Gson().toJson(selectedArticle)
+        } else {
+            ""
+        }
+    }
 
     override fun fetchHeadlineData(request: Headline.HeadlineData.Request) {
         if (request.refresh) {
@@ -77,10 +84,7 @@ class HeadlineInteractor : HeadlineBusinessLogic {
     }
 
     override fun fetchDetailData(request: Headline.DetailData.Request) {
-        val article = articles[request.position]
-        article.url?.let {
-            this@HeadlineInteractor.url = it
-        }
+        selectedArticle = articles[request.position]
         presenter.routeToArticleDetail()
     }
 }

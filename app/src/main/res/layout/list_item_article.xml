@@ -35,7 +35,6 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/colorBlackLight"
                 android:textSize="12sp"
-                android:textStyle=""
                 tools:text="National Geographic"/>
 
             <Space

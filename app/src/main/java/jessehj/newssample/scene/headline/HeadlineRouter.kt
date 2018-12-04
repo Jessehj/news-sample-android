@@ -1,7 +1,6 @@
 package jessehj.newssample.scene.headline
 
-import android.content.Intent
-import android.net.Uri
+import jessehj.newssample.scene.detail.detailIntent
 import java.lang.ref.WeakReference
 
 
@@ -15,10 +14,8 @@ class HeadlineRouter : HeadlineRoutingLogic {
     lateinit var dataStore: HeadlineDataStore
 
     override fun navigateToArticleDetail() {
-        dataStore.detailUrl()?.apply {
-            val uri = Uri.parse(this)
-            val intent = Intent(Intent.ACTION_VIEW, uri)
-            activity.get()?.startActivity(intent)
+        activity.get()?.apply {
+            startActivity(detailIntent(dataStore.articleJson()))
         }
     }
 }

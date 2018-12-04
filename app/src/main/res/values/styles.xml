@@ -8,9 +8,14 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="ToolbarStyleDark" parent="ThemeOverlay.MaterialComponents.Dark">
+    <style name="ToolbarStyleDark" parent="ThemeOverlay.AppCompat.Dark">
         <item name="colorControlNormal">@color/colorWhiteLight</item>
         <item name="android:background">@color/colorPrimary</item>
+    </style>
+
+    <style name="ToolbarStyleLight" parent="ThemeOverlay.AppCompat.Light">
+        <item name="colorControlNormal">@color/colorBlackLight</item>
+        <item name="android:background">@android:color/transparent</item>
     </style>
 
     <style name="EditTextStylePrimary" parent="Base.Widget.AppCompat.EditText">

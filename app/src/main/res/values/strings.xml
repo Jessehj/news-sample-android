@@ -11,7 +11,11 @@
     <string name="title_sports">Sports</string>
     <string name="title_technology">Technology</string>
     <string name="title_hint_search">Input search keywords</string>
+    <string name="title_article">Article</string>
+    <string name="title_view_full_news_article">View full news article</string>
+
     <string name="msg_data_not_found">No Results...</string>
+
 
     <string name="title_moment_ago">Moment ago</string>
     <string name="format_hours_ago">%1$d hours ago</string>

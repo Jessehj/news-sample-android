@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/toolbarCoordinatorLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".scene.detail.DetailActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/toolbarAppBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorGrayLight"
+        android:fitsSystemWindows="true">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/toolbarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fitsSystemWindows="true"
+            app:contentScrim="@color/colorGrayLight"
+            app:layout_collapseParallaxMultiplier="0.5"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:titleEnabled="false"
+            app:toolbarId="@+id/toolbar">
+
+            <LinearLayout
+                android:id="@+id/expandLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="24dp"
+                android:gravity="center"
+                android:orientation="vertical"
+                app:layout_scrollFlags="scroll|enterAlways">
+
+                <LinearLayout
+                    android:id="@+id/sourceLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/sourceImageView"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        tools:src="@drawable/national_geographic"/>
+
+                    <TextView
+                        android:id="@+id/sourceTextView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:textColor="@color/colorBlackLight"
+                        android:textSize="18sp"
+                        tools:text="National Geographic"/>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@color/colorGray"/>
+
+                <TextView
+                    android:id="@+id/titleTextView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorBlackDark"
+                    android:textSize="32sp"
+                    android:textStyle="bold"
+                    tools:text="Geminid meteors peak, and more can't-miss sky shows in December - National Geographic"/>
+
+                <TextView
+                    android:id="@+id/dateTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:textColor="@color/colorBlackLight"
+                    android:textSize="16sp"
+                    android:textStyle="italic"
+                    tools:text="2018-11-11"/>
+
+                <TextView
+                    android:id="@+id/authorTextView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textColor="@color/colorBlackLight"
+                    android:textSize="18sp"
+                    android:textStyle="italic"
+                    tools:text="Jessehj"/>
+
+
+            </LinearLayout>
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:gravity="center_vertical"
+                android:theme="@style/ToolbarStyleLight"
+                app:contentInsetStartWithNavigation="0dp"
+                app:layout_collapseMode="pin">
+
+                <LinearLayout
+                    android:id="@+id/collapsedLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <ImageView
+                        android:id="@+id/sourceImageViewCollapsed"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:src="@drawable/national_geographic"/>
+
+                    <TextView
+                        android:id="@+id/sourceTextViewCollapsed"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginLeft="8dp"
+                        android:textColor="@color/colorBlackLight"
+                        android:textSize="24sp"
+                        android:textStyle="bold"
+                        tools:text="National Geographic"/>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.Toolbar>
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorGrayLight"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="24dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/articleImageView"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginBottom="8dp"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                tools:src="@drawable/news_placeholder"/>
+
+            <TextView
+                android:id="@+id/contentTextView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:ellipsize="end"
+                android:textColor="@color/colorBlackLight"
+                android:textSize="24sp"
+                tools:text="NationaGeographic Geminid metenors peak, and more can't-miss sky shows in December National Geographic As the December holiday season gets into full swing, sky-watchers around the world will receive some early celestial presents, including plentiful comet si…"/>
+
+
+            <Button
+                android:id="@+id/detailButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:background="@color/colorPrimary"
+                android:foreground="?attr/selectableItemBackground"
+                android:text="@string/title_view_full_news_article"
+                android:textColor="@color/colorWhiteDark"
+                android:textSize="16sp"
+                android:theme="@style/Base.ThemeOverlay.AppCompat.Dark"/>
+
+        </LinearLayout>
+
+    </android.support.v4.widget.NestedScrollView>
+
+</android.support.design.widget.CoordinatorLayout>
+
