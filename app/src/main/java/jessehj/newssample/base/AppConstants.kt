@@ -10,6 +10,10 @@ object AppConstants {
     object Commons {
         const val q = "q"
         const val page = "page"
+        const val status = "status"
+        const val code = "code"
+        const val message = "message"
+
     }
 
     object Headers {

@@ -3,6 +3,7 @@ package jessehj.newssample.network.apis
 import jessehj.newssample.base.AppConstants
 import jessehj.newssample.entity.article.Article
 import jessehj.newssample.entity.filter.ArticleFilter
+import jessehj.newssample.network.ResError
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -32,7 +33,7 @@ class ArticleAPIUnitTest {
                 Assert.assertNotNull(articles)
             }
 
-            override fun onError(error: Error) {
+            override fun onError(error: ResError) {
 
             }
         })
@@ -54,7 +55,7 @@ class ArticleAPIUnitTest {
                     Assert.assertTrue(articles.isEmpty())
                 }
 
-                override fun onError(error: Error) {
+                override fun onError(error: ResError) {
 
                 }
             })

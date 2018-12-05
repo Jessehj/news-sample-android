@@ -6,6 +6,7 @@ import jessehj.newssample.BuildConfig
 import jessehj.newssample.base.AppConstants
 import jessehj.newssample.entity.filter.SourceFilter
 import jessehj.newssample.entity.source.Source
+import jessehj.newssample.network.ResError
 import jessehj.newssample.network.RetrofitClient
 import jessehj.newssample.network.RetrofitService
 import jessehj.newssample.util.ModelUtils
@@ -23,7 +24,7 @@ interface SourceAPI {
 
     interface SourcesCompletion {
         fun onSuccess(sources: MutableList<Source>)
-        fun onError(error: Error)
+        fun onError(error: ResError)
     }
 
     companion object {
@@ -37,24 +38,25 @@ interface SourceAPI {
             }
 
             RetrofitService<JsonObject>().request(api.getSources(params),
-                    object : RetrofitService.Completion {
-                        override fun onSuccess(response: Any?) {
-                            if (response is JsonObject) {
-                                val sourcesJson = response.get(AppConstants.Source.sources) as JsonArray
-                                val sources = ModelUtils.parseJson<MutableList<Source>>(sourcesJson.toString())?.let {
+                object : RetrofitService.Completion {
+                    override fun onSuccess(response: Any?) {
+                        if (response is JsonObject) {
+                            val sourcesJson = response.get(AppConstants.Source.sources) as JsonArray
+                            val sources =
+                                ModelUtils.parseJson<MutableList<Source>>(sourcesJson.toString())?.let {
                                     it
                                 } ?: mutableListOf()
 
-                                completion.onSuccess(sources)
-                            } else {
-                                completion.onError(Error("Response Error"))
-                            }
+                            completion.onSuccess(sources)
+                        } else {
+                            completion.onError(ResError("Response Error"))
                         }
+                    }
 
-                        override fun onError(error: Error) {
-                            completion.onError(error)
-                        }
-                    })
+                    override fun onError(error: ResError) {
+                        completion.onError(error)
+                    }
+                })
         }
     }
 

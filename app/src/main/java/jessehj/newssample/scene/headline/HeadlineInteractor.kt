@@ -4,6 +4,7 @@ import com.google.gson.Gson
 import jessehj.newssample.base.AppManager
 import jessehj.newssample.entity.article.Article
 import jessehj.newssample.entity.filter.ArticleFilter
+import jessehj.newssample.network.ResError
 import jessehj.newssample.network.apis.ArticleAPI
 import jessehj.newssample.util.ModelUtils
 
@@ -69,9 +70,13 @@ class HeadlineInteractor : HeadlineBusinessLogic {
                     presenter.dismissProgress()
                 }
 
-                override fun onError(error: Error) {
+                override fun onError(error: ResError) {
                     presenter.refreshComplete()
-                    presenter.presentError(error.localizedMessage)
+                    error.errParam?.message?.let {
+                        presenter.presentError(it)
+                    } ?: run {
+                        presenter.presentError(error.message)
+                    }
                     presenter.dismissProgress()
                 }
             })

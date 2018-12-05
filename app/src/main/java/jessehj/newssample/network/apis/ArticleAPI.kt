@@ -6,6 +6,7 @@ import jessehj.newssample.BuildConfig
 import jessehj.newssample.base.AppConstants
 import jessehj.newssample.entity.article.Article
 import jessehj.newssample.entity.filter.ArticleFilter
+import jessehj.newssample.network.ResError
 import jessehj.newssample.network.RetrofitClient
 import jessehj.newssample.network.RetrofitService
 import jessehj.newssample.util.ModelUtils
@@ -26,12 +27,12 @@ interface ArticleAPI {
 
     interface TopHeadlinesCompletion {
         fun onSuccess(articles: MutableList<Article>)
-        fun onError(error: Error)
+        fun onError(error: ResError)
     }
 
     interface ArticlesCompletion {
         fun onSuccess(articles: MutableList<Article>)
-        fun onError(error: Error)
+        fun onError(error: ResError)
     }
 
     companion object {
@@ -64,11 +65,11 @@ interface ArticleAPI {
 
                             completion.onSuccess(articles)
                         } else {
-                            completion.onError(Error("Response Error"))
+                            completion.onError(ResError("Response Error"))
                         }
                     }
 
-                    override fun onError(error: Error) {
+                    override fun onError(error: ResError) {
                         completion.onError(error)
                     }
                 })
@@ -101,11 +102,11 @@ interface ArticleAPI {
 
                             completion.onSuccess(articles)
                         } else {
-                            completion.onError(Error("Response Error"))
+                            completion.onError(ResError("Response Error"))
                         }
                     }
 
-                    override fun onError(error: Error) {
+                    override fun onError(error: ResError) {
                         completion.onError(error)
                     }
                 })

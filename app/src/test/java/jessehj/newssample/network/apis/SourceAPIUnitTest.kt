@@ -3,6 +3,7 @@ package jessehj.newssample.network.apis
 import jessehj.newssample.base.AppConstants
 import jessehj.newssample.entity.filter.SourceFilter
 import jessehj.newssample.entity.source.Source
+import jessehj.newssample.network.ResError
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -25,12 +26,12 @@ class SourceAPIUnitTest {
             null,
             null
         )
-        SourceAPI.loadSources(filter, object : SourceAPI.SourcesCompletion{
+        SourceAPI.loadSources(filter, object : SourceAPI.SourcesCompletion {
             override fun onSuccess(sources: MutableList<Source>) {
                 Assert.assertNotNull(sources)
             }
 
-            override fun onError(error: Error) {
+            override fun onError(error: ResError) {
 
             }
         })
@@ -42,12 +43,12 @@ class SourceAPIUnitTest {
             AppConstants.Category.Science,
             AppConstants.Country.Korea
         )
-        SourceAPI.loadSources(filter, object : SourceAPI.SourcesCompletion{
+        SourceAPI.loadSources(filter, object : SourceAPI.SourcesCompletion {
             override fun onSuccess(sources: MutableList<Source>) {
                 Assert.assertTrue(sources.isEmpty())
             }
 
-            override fun onError(error: Error) {
+            override fun onError(error: ResError) {
 
             }
         })

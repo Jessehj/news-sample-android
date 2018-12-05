@@ -2,6 +2,7 @@ package jessehj.newssample.scene.source
 
 import jessehj.newssample.base.AppManager
 import jessehj.newssample.entity.filter.SourceFilter
+import jessehj.newssample.network.ResError
 import jessehj.newssample.network.apis.SourceAPI
 import jessehj.newssample.util.ModelUtils
 
@@ -51,9 +52,14 @@ class SourceInteractor : SourceBusinessLogic {
                 presenter.dismissProgress()
             }
 
-            override fun onError(error: Error) {
+            override fun onError(error: ResError) {
                 presenter.dismissProgress()
-                presenter.presentError(error.localizedMessage)
+                error.errParam?.message?.let {
+                    presenter.presentError(it)
+                } ?: run {
+                    presenter.presentError(error.message)
+                }
+
             }
         })
     }

@@ -16,13 +16,13 @@ class RetrofitService<T> : RetrofitRequest<T> {
 
     interface Completion {
         fun onSuccess(response: Any?)
-        fun onError(error: Error)
+        fun onError(error: ResError)
     }
 
     override fun request(call: Call<T>, completion: Completion) {
         call.enqueue(object : Callback<T> {
             override fun onFailure(call: Call<T>, t: Throwable) {
-                completion.onError(Error(t.localizedMessage))
+                completion.onError(ResError(t.localizedMessage))
             }
 
             override fun onResponse(call: Call<T>, response: Response<T>) {
@@ -33,7 +33,8 @@ class RetrofitService<T> : RetrofitRequest<T> {
                         completion.onSuccess(null)
                     }
                 } else {
-                    completion.onError(Error("Unexpected Error"))
+                    val error = ResError.parseError(response)
+                    completion.onError(error)
                 }
             }
         })
