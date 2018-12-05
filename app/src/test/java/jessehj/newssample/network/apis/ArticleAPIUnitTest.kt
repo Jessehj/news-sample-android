@@ -60,4 +60,22 @@ class ArticleAPIUnitTest {
                 }
             })
     }
+
+    @Test
+    fun articleAPI_loadArticles_with_SourceId() {
+        val filter = ArticleFilter(
+            null,
+            AppConstants.Country.Korea,
+            "espn"
+        )
+        ArticleAPI.loadTopHeadlines(1, filter, null, object : ArticleAPI.TopHeadlinesCompletion {
+            override fun onSuccess(articles: MutableList<Article>) {
+                Assert.assertNotNull(articles)
+            }
+
+            override fun onError(error: ResError) {
+
+            }
+        })
+    }
 }
