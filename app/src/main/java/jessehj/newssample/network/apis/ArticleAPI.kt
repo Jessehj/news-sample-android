@@ -49,7 +49,7 @@ interface ArticleAPI {
             q?.let { params[AppConstants.Commons.q] = it }
             filter.apply {
                 this.category?.value?.let { params[AppConstants.Headline.category] = it }
-                this.country?.value?.let { params[AppConstants.Headline.country] = it }
+                params[AppConstants.Headline.country] = this.country.value
             }
 
             RetrofitService<JsonObject>().request(api.getTopHeadlines(params),

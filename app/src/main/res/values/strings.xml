@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">NewsSample</string>
     <string name="title_headlines">Top-Headlines</string>
+    <string name="title_headline_filter">Top-Headlines Filter</string>
     <string name="title_sources">News Sources</string>
     <string name="title_all">All</string>
     <string name="title_business">Business</string>
@@ -15,9 +16,14 @@
     <string name="title_article">Article</string>
     <string name="title_view_full_news_article">View full news article</string>
     <string name="title_article_list">Article list</string>
+    <string name="title_category">Category</string>
+    <string name="title_country">Country</string>
+    <string name="title_korea">Korea</string>
+    <string name="title_usa">USA</string>
+    <string name="title_china">China</string>
+    <string name="title_japan">Japan</string>
 
     <string name="msg_data_not_found">No Results...</string>
-
 
     <string name="title_moment_ago">Moment ago</string>
     <string name="format_hours_ago">%1$d hours ago</string>

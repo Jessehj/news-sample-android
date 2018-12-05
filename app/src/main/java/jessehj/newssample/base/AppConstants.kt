@@ -60,6 +60,8 @@ object AppConstants {
     object CountryCode {
         const val kr = "kr"
         const val us = "us"
+        const val cn = "cn"
+        const val jp = "jp"
     }
 
     object Date {
@@ -78,13 +80,14 @@ object AppConstants {
     }
 
     enum class Country(val tag: String, val value: String) {
-        Korea("Korean", CountryCode.kr),
-        USA("USA", CountryCode.us)
+        Korea("Korea", CountryCode.kr),
+        USA("USA", CountryCode.us),
+        China("China", CountryCode.cn),
+        Japan("Japan", CountryCode.jp)
     }
 
     enum class ArticleType {
         Headline,
         Simple
     }
-
 }

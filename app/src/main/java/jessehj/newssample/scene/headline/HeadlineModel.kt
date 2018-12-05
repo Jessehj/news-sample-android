@@ -1,6 +1,7 @@
 package jessehj.newssample.scene.headline
 
 import android.content.Context
+import jessehj.newssample.base.AppConstants
 import jessehj.newssample.entity.article.Article
 import jessehj.newssample.entity.article.ArticleViewModel
 
@@ -30,6 +31,8 @@ class Headline {
     class FilterData {
         class Request {
             lateinit var context: Context
+            var category: AppConstants.Category? = null
+            var country: AppConstants.Country? = null
         }
 
         class Response {
@@ -45,6 +48,23 @@ class Headline {
         class Request {
             lateinit var context: Context
             var position: Int = -1
+        }
+    }
+
+    class OpenFilter {
+        class Request {
+            lateinit var context: Context
+        }
+
+        class Response {
+            lateinit var context: Context
+            var category: AppConstants.Category? = null
+            var country: AppConstants.Country = AppConstants.Country.Korea
+        }
+
+        class ViewModel {
+            var category: AppConstants.Category? = null
+            var country: AppConstants.Country = AppConstants.Country.Korea
         }
     }
 }

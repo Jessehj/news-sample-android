@@ -11,7 +11,7 @@ import jessehj.newssample.util.ModelUtils
  */
 
 
-class RecyclerViewSpaceDecoration : RecyclerView.ItemDecoration {
+class RecyclerViewSpaceDeco : RecyclerView.ItemDecoration {
 
     private var context: Context
     private var top = -1

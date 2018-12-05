@@ -4,10 +4,13 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import jessehj.newssample.R
 import jessehj.newssample.base.AppConstants
 import jessehj.newssample.scene.BaseActivity
+import jessehj.newssample.scene.dialog.FilterDialogFragment
 import jessehj.newssample.view.adapter.ArticleAdapter
 import jessehj.newssample.view.listener.PaginationListener
 import jessehj.newssample.view.listener.SimpleTextWatcher
@@ -28,9 +31,15 @@ interface HeadlineDisplayLogic {
     fun refreshComplete()
     fun displayError(errMsg: String)
     fun routeToArticleDetail()
+    fun displayFilterDialog(viewModel: Headline.OpenFilter.ViewModel)
 }
 
-class HeadlineActivity : BaseActivity(), HeadlineDisplayLogic {
+class HeadlineActivity : BaseActivity(), HeadlineDisplayLogic,
+    FilterDialogFragment.OnFragmentInteractionListener {
+
+    companion object {
+        const val TAG_FILTER_DIALOG = "tagHeadlineDialog"
+    }
 
     lateinit var interactor: HeadlineBusinessLogic
     lateinit var router: HeadlineRouter
@@ -51,9 +60,29 @@ class HeadlineActivity : BaseActivity(), HeadlineDisplayLogic {
         updateBottomMenu(this@HeadlineActivity, bottomNavigation)
     }
 
-    fun fetchFilterData() {
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.category_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        return when (item?.itemId) {
+            R.id.action_category -> {
+                fetchFilterDialog()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    fun fetchFilterData(
+        category: AppConstants.Category? = null,
+        country: AppConstants.Country? = null
+    ) {
         Headline.FilterData.Request().apply {
             context = this@HeadlineActivity
+            category?.let { this.category = it }
+            country?.let { this.country = it }
             interactor.fetchFilterData(this)
         }
     }
@@ -72,6 +101,13 @@ class HeadlineActivity : BaseActivity(), HeadlineDisplayLogic {
             context = this@HeadlineActivity
             this.position = position
             interactor.fetchDetailData(this)
+        }
+    }
+
+    fun fetchFilterDialog() {
+        Headline.OpenFilter.Request().apply {
+            context = this@HeadlineActivity
+            interactor.fetchFilterDialog(this)
         }
     }
 
@@ -142,5 +178,21 @@ class HeadlineActivity : BaseActivity(), HeadlineDisplayLogic {
 
     override fun dismissProgress() {
         configLoadingProgress(loadingView, false)
+    }
+
+    override fun displayFilterDialog(viewModel: Headline.OpenFilter.ViewModel) {
+        FilterDialogFragment.newInstance(viewModel.category, viewModel.country).apply {
+            if (!this.isAdded) {
+                supportFragmentManager.beginTransaction()
+                    .add(this, TAG_FILTER_DIALOG)
+                    .commitAllowingStateLoss()
+            }
+        }
+    }
+
+    // FilterDialogFragment.OnFragmentInteractionListener:
+    override fun onDismissDialog(category: AppConstants.Category?, country: AppConstants.Country) {
+        fetchFilterData(category, country)
+        fetchHeadlineData(true)
     }
 }

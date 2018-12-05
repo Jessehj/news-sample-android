@@ -9,7 +9,7 @@ import jessehj.newssample.R
 import jessehj.newssample.base.AppConstants
 import jessehj.newssample.scene.BaseActivity
 import jessehj.newssample.view.adapter.ArticleAdapter
-import jessehj.newssample.view.custom.RecyclerViewSpaceDecoration
+import jessehj.newssample.view.custom.RecyclerViewSpaceDeco
 import jessehj.newssample.view.listener.PaginationListener
 import jessehj.newssample.view.listener.SimpleTextWatcher
 import kotlinx.android.synthetic.main.activity_list.*
@@ -75,7 +75,7 @@ class ListActivity : BaseActivity(), ListDisplayLogic {
         articleRecyclerView.apply {
             this.layoutManager = layoutManager
             this.addOnScrollListener(paginationListener)
-            this.addItemDecoration(RecyclerViewSpaceDecoration(this@ListActivity, 2))
+            this.addItemDecoration(RecyclerViewSpaceDeco(this@ListActivity, 2))
             this.adapter = ArticleAdapter(AppConstants.ArticleType.Simple) {
                 fetchDetailData(it)
             }

@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/filterNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/title_headline_filter"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/colorGrayLight"/>
+
+    <TextView
+        android:id="@+id/categoryTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/title_category"
+        android:textColor="@color/colorBlackLight"
+        android:textSize="16sp"/>
+
+    <jessehj.newssample.view.custom.MultilineRadioGroup
+        android:id="@+id/categoryRadioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <RadioButton
+                android:id="@+id/allRadioButton"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:background="@drawable/selector_radio_button"
+                android:button="@null"
+                android:checked="true"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:text="@string/title_all"
+                android:textColor="@drawable/selector_color_white_primary"
+                android:textSize="16sp"/>
+
+            <RadioButton
+                android:id="@+id/businessRadioButton"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/selector_radio_button"
+                android:button="@null"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:text="@string/title_business"
+                android:textColor="@drawable/selector_color_white_primary"
+                android:textSize="16sp"/>
+
+            <RadioButton
+                android:id="@+id/enterRadioButton"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/selector_radio_button"
+                android:button="@null"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:text="@string/title_entertainment"
+                android:textColor="@drawable/selector_color_white_primary"
+                android:textSize="16sp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <RadioButton
+                android:id="@+id/generalRadioButton"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:background="@drawable/selector_radio_button"
+                android:button="@null"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:text="@string/title_general"
+                android:textColor="@drawable/selector_color_white_primary"
+                android:textSize="16sp"/>
+
+            <RadioButton
+                android:id="@+id/healthRadioButton"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/selector_radio_button"
+                android:button="@null"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:text="@string/title_health"
+                android:textColor="@drawable/selector_color_white_primary"
+                android:textSize="16sp"/>
+
+            <RadioButton
+                android:id="@+id/scienceRadioButton"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/selector_radio_button"
+                android:button="@null"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:text="@string/title_science"
+                android:textColor="@drawable/selector_color_white_primary"
+                android:textSize="16sp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <RadioButton
+                android:id="@+id/sportsRadioButton"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:background="@drawable/selector_radio_button"
+                android:button="@null"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:text="@string/title_sports"
+                android:textColor="@drawable/selector_color_white_primary"
+                android:textSize="16sp"/>
+
+            <RadioButton
+                android:id="@+id/techRadioButton"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/selector_radio_button"
+                android:button="@null"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center"
+                android:text="@string/title_technology"
+                android:textColor="@drawable/selector_color_white_primary"
+                android:textSize="16sp"/>
+
+        </LinearLayout>
+
+    </jessehj.newssample.view.custom.MultilineRadioGroup>
+
+    <TextView
+        android:id="@+id/countryTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/title_country"
+        android:textColor="@color/colorBlackLight"
+        android:textSize="16sp"/>
+
+    <RadioGroup
+        android:id="@+id/countryRadioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        android:weightSum="4">
+
+        <RadioButton
+            android:id="@+id/korRadioButton"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_radio_button"
+            android:button="@null"
+            android:checked="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:text="@string/title_korea"
+            android:textColor="@drawable/selector_color_white_primary"
+            android:textSize="16sp"/>
+
+        <RadioButton
+            android:id="@+id/usaRadioButton"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_radio_button"
+            android:button="@null"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:text="@string/title_usa"
+            android:textColor="@drawable/selector_color_white_primary"
+            android:textSize="16sp"/>
+
+        <RadioButton
+            android:id="@+id/chnRadioButton"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_radio_button"
+            android:button="@null"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:text="@string/title_china"
+            android:textColor="@drawable/selector_color_white_primary"
+            android:textSize="16sp"/>
+
+        <RadioButton
+            android:id="@+id/jpnRadioButton"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/selector_radio_button"
+            android:button="@null"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+            android:text="@string/title_japan"
+            android:textColor="@drawable/selector_color_white_primary"
+            android:textSize="16sp"/>
+
+    </RadioGroup>
+
+</LinearLayout>

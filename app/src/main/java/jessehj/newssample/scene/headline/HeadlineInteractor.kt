@@ -13,6 +13,7 @@ interface HeadlineBusinessLogic : HeadlineDataPassing, HeadlineDataStore {
     fun fetchHeadlineData(request: Headline.HeadlineData.Request)
     fun fetchFilterData(request: Headline.FilterData.Request)
     fun fetchDetailData(request: Headline.DetailData.Request)
+    fun fetchFilterDialog(request: Headline.OpenFilter.Request)
 }
 
 interface HeadlineDataPassing {
@@ -86,10 +87,24 @@ class HeadlineInteractor : HeadlineBusinessLogic {
         val filterJson = AppManager.getArticleFilter(request.context)
         articleFilter = ModelUtils.parseJson<ArticleFilter>(filterJson)?.let { it } ?:
                 ArticleFilter()
+
+        request.category?.let { articleFilter.category = it }
+        request.country?.let { articleFilter.country = it }
+
+        AppManager.setArticleFilter(request.context, Gson().toJson(articleFilter))
     }
 
     override fun fetchDetailData(request: Headline.DetailData.Request) {
         selectedArticle = articles[request.position]
         presenter.routeToArticleDetail()
+    }
+
+    override fun fetchFilterDialog(request: Headline.OpenFilter.Request) {
+        Headline.OpenFilter.Response().apply {
+            context = request.context
+            country = articleFilter.country
+            category = articleFilter.category
+            presenter.presentFilterDialog(this)
+        }
     }
 }

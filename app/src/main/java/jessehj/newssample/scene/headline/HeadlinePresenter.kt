@@ -11,6 +11,7 @@ interface HeadlinePresentationLogic {
     fun presentError(errMsg: String)
     fun routeToArticleDetail()
     fun dismissProgress()
+    fun presentFilterDialog(response: Headline.OpenFilter.Response)
 }
 
 class HeadlinePresenter : HeadlinePresentationLogic {
@@ -54,5 +55,13 @@ class HeadlinePresenter : HeadlinePresentationLogic {
 
     override fun dismissProgress() {
         activity.get()?.dismissProgress()
+    }
+
+    override fun presentFilterDialog(response: Headline.OpenFilter.Response) {
+        Headline.OpenFilter.ViewModel().apply {
+            country = response.country
+            category = response.category
+            activity.get()?.displayFilterDialog(this)
+        }
     }
 }
