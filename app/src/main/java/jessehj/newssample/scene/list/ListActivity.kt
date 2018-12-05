@@ -1,4 +1,4 @@
-package jessehj.newssample.scene.headline
+package jessehj.newssample.scene.list
 
 import android.content.Context
 import android.content.Intent
@@ -9,107 +9,111 @@ import jessehj.newssample.R
 import jessehj.newssample.base.AppConstants
 import jessehj.newssample.scene.BaseActivity
 import jessehj.newssample.view.adapter.ArticleAdapter
+import jessehj.newssample.view.custom.RecyclerViewSpaceDecoration
 import jessehj.newssample.view.listener.PaginationListener
 import jessehj.newssample.view.listener.SimpleTextWatcher
-import kotlinx.android.synthetic.main.activity_headline.*
+import kotlinx.android.synthetic.main.activity_list.*
 import org.jetbrains.anko.design.longSnackbar
 import org.jetbrains.anko.intentFor
-import org.jetbrains.anko.noAnimation
 
-fun Context.headlineIntent(): Intent {
-    return intentFor<HeadlineActivity>().noAnimation()
+const val EXTRA_SOURCE_ID = "extraSourceId"
+
+fun Context.listIntent(sourceId: String?): Intent {
+    return intentFor<ListActivity>(
+        EXTRA_SOURCE_ID to sourceId
+    )
 }
 
-interface HeadlineDisplayLogic {
-    fun displayHeadlineData(viewModel: Headline.HeadlineData.ViewModel)
-    fun displayProgress()
-    fun dismissProgress()
+interface ListDisplayLogic {
+    fun displayListData(viewModel: List.ListData.ViewModel)
     fun setPagingEnabled(enabled: Boolean)
     fun refreshComplete()
     fun displayError(errMsg: String)
     fun routeToArticleDetail()
+    fun displayProgress()
+    fun dismissProgress()
 }
 
-class HeadlineActivity : BaseActivity(), HeadlineDisplayLogic {
+class ListActivity : BaseActivity(), ListDisplayLogic {
 
-    lateinit var interactor: HeadlineBusinessLogic
-    lateinit var router: HeadlineRouter
+    lateinit var interactor: ListBusinessLogic
+    lateinit var router: ListRouter
     private lateinit var paginationListener: PaginationListener
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        HeadlineConfigurator.configure(this)
-        setContentView(R.layout.activity_headline)
+        ListConfigurator.configure(this)
+        setContentView(R.layout.activity_list)
 
+        getIntentData()
         configViews()
         fetchFilterData()
-        fetchHeadlineData(true)
+        fetchListData(true)
     }
 
-    override fun onStart() {
-        super.onStart()
-        updateBottomMenu(this@HeadlineActivity, bottomNavigation)
-    }
-
-    fun fetchFilterData() {
-        Headline.FilterData.Request().apply {
-            context = this@HeadlineActivity
-            interactor.fetchFilterData(this)
+    fun getIntentData() {
+        if (intent.hasExtra(EXTRA_SOURCE_ID)) {
+            val sourceId: String = intent.getStringExtra(EXTRA_SOURCE_ID)
+            interactor.passSourceId(sourceId)
         }
     }
 
-    fun fetchHeadlineData(refresh: Boolean) {
-        Headline.HeadlineData.Request().apply {
-            context = this@HeadlineActivity
-            this.refresh = refresh
-            this.keyword = searchEditText.text.toString()
-            interactor.fetchHeadlineData(this)
-        }
-    }
-
-    fun fetchDetailData(position: Int) {
-        Headline.DetailData.Request().apply {
-            context = this@HeadlineActivity
-            this.position = position
-            interactor.fetchDetailData(this)
-        }
-    }
-
-    private fun configViews() {
+    fun configViews() {
         displayProgress()
 
-        val layoutManager = LinearLayoutManager(this@HeadlineActivity)
+        val layoutManager = LinearLayoutManager(this@ListActivity)
         paginationListener = object : PaginationListener(layoutManager) {
             override fun onLoadMore() {
-                fetchHeadlineData(false)
+                fetchListData(false)
             }
         }
 
         refreshLayout.setOnRefreshListener {
-            fetchHeadlineData(true)
+            fetchListData(true)
         }
 
         articleRecyclerView.apply {
             this.layoutManager = layoutManager
             this.addOnScrollListener(paginationListener)
-            this.adapter = ArticleAdapter(AppConstants.ArticleType.Headline) {
+            this.addItemDecoration(RecyclerViewSpaceDecoration(this@ListActivity, 2))
+            this.adapter = ArticleAdapter(AppConstants.ArticleType.Simple) {
                 fetchDetailData(it)
             }
         }
 
         searchEditText.addTextChangedListener(object : SimpleTextWatcher() {
             override fun onTextChanged(inputted: String) {
-                fetchHeadlineData(true)
+                fetchListData(true)
             }
         })
-
-        // Header:
-        configToolbar(toolbar, false, true)
-        // Footer:
-        configBottomNavigation(this@HeadlineActivity, bottomNavigation)
+        configToolbar(toolbar, true, true)
     }
 
-    override fun displayHeadlineData(viewModel: Headline.HeadlineData.ViewModel) {
+    fun fetchFilterData() {
+        List.FilterData.Request().apply {
+            context = this@ListActivity
+            interactor.fetchFilterData(this)
+        }
+    }
+
+    fun fetchListData(refresh: Boolean) {
+        List.ListData.Request().apply {
+            context = this@ListActivity
+            this.refresh = refresh
+            this.keyword = searchEditText.text.toString()
+            interactor.fetchListData(this)
+        }
+    }
+
+    fun fetchDetailData(position: Int) {
+        List.DetailData.Request().apply {
+            context = this@ListActivity
+            this.position = position
+            interactor.fetchDetailData(this)
+        }
+    }
+
+    override fun displayListData(viewModel: List.ListData.ViewModel) {
         if (viewModel.viewModels.isEmpty()) {
             articleRecyclerView.visibility = View.GONE
             emptyTextView.visibility = View.VISIBLE

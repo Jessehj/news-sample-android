@@ -48,6 +48,11 @@ object AppConstants {
         const val country = "country"
     }
 
+    object Everything {
+        const val uri = "everything"
+        const val sources = "sources"
+    }
+
     object CountryCode {
         const val kr = "kr"
         const val us = "us"
@@ -71,6 +76,11 @@ object AppConstants {
     enum class Country(val tag: String, val value: String) {
         Korea("Korean", CountryCode.kr),
         USA("USA", CountryCode.us)
+    }
+
+    enum class ArticleType {
+        Headline,
+        Simple
     }
 
 }

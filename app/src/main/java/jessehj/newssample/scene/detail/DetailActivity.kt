@@ -9,6 +9,7 @@ import com.squareup.picasso.Picasso
 import jessehj.newssample.R
 import jessehj.newssample.scene.BaseActivity
 import jessehj.newssample.util.AnimationUtils
+import jessehj.newssample.view.listener.AppBarStateChangedListener
 import kotlinx.android.synthetic.main.activity_detail.*
 import org.jetbrains.anko.intentFor
 
@@ -25,6 +26,10 @@ interface DetailDisplayLogic {
 }
 
 class DetailActivity : BaseActivity(), DetailDisplayLogic {
+
+    companion object {
+        const val ANIMATION_DURATION = 500
+    }
 
     lateinit var interactor: DetailBusinessLogic
     lateinit var router: DetailRouter
@@ -49,16 +54,22 @@ class DetailActivity : BaseActivity(), DetailDisplayLogic {
     fun configViews() {
 
         configToolbar(toolbar)
-        toolbarAppBarLayout.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { appBarLayout, verticalOffset ->
-            if (Math.abs(verticalOffset) >= appBarLayout.totalScrollRange) {
-                if (collapsedLayout.visibility == View.GONE) {
-                    collapsedLayout.visibility = View.VISIBLE
-                    collapsedLayout.startAnimation(AnimationUtils.fadeInAnimation(500))
-                }
-            } else {
-                if (collapsedLayout.visibility == View.VISIBLE) {
-                    collapsedLayout.visibility = View.GONE
-                    collapsedLayout.startAnimation(AnimationUtils.fadeOutAnimation(500))
+
+        toolbarAppBarLayout.addOnOffsetChangedListener(object : AppBarStateChangedListener() {
+            override fun onStateChanged(appBarLayout: AppBarLayout, state: State) {
+                when (state) {
+                    State.Expanded -> {
+                        collapsedLayout.visibility = View.GONE
+                        AnimationUtils.fadeOutAnimation(ANIMATION_DURATION).apply {
+                            collapsedLayout.startAnimation(this)
+                        }
+                    }
+                    State.Collapsed -> {
+                        collapsedLayout.visibility = View.VISIBLE
+                        AnimationUtils.fadeInAnimation(ANIMATION_DURATION).apply {
+                            collapsedLayout.startAnimation(this)
+                        }
+                    }
                 }
             }
         })

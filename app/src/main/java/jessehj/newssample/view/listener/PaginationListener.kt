@@ -1,4 +1,4 @@
-package jessehj.newssample.util
+package jessehj.newssample.view.listener
 
 import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager

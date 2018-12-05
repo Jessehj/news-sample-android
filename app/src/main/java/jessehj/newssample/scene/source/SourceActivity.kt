@@ -7,7 +7,7 @@ import android.support.v7.widget.GridLayoutManager
 import android.view.View
 import jessehj.newssample.R
 import jessehj.newssample.scene.BaseActivity
-import jessehj.newssample.scene.adapter.SourceAdapter
+import jessehj.newssample.view.adapter.SourceAdapter
 import kotlinx.android.synthetic.main.activity_source.*
 import org.jetbrains.anko.design.longSnackbar
 import org.jetbrains.anko.intentFor
@@ -22,6 +22,7 @@ interface SourceDisplayLogic {
     fun displayError(errMsg: String)
     fun displayProress()
     fun dismissProgress()
+    fun routeToArticleList()
 
 }
 
@@ -73,7 +74,7 @@ class SourceActivity : BaseActivity(), SourceDisplayLogic {
         sourceRecyclerView.apply {
             this.layoutManager = layoutManager
             this.adapter = SourceAdapter {
-                // TODO Click action
+                fetchDetailData(it)
             }
         }
 
@@ -104,5 +105,9 @@ class SourceActivity : BaseActivity(), SourceDisplayLogic {
 
     override fun dismissProgress() {
         configLoadingProgress(loadingView, false)
+    }
+
+    override fun routeToArticleList() {
+        router.navigateToArticleList()
     }
 }

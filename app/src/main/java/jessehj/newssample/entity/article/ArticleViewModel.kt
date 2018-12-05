@@ -14,4 +14,7 @@ class ArticleViewModel(context: Context, article: Article) {
     var title = article.title
     var content = article.description
     var date = ModelUtils.articleDate(context, article.publishedAt)
+    var srcImgPath = ModelUtils.sourceImageMapper(article.source?.id)
+    var srcName = article.source?.name
+
 }

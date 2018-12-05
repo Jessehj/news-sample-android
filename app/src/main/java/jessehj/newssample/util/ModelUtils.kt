@@ -1,6 +1,7 @@
 package jessehj.newssample.util
 
 import android.content.Context
+import android.util.DisplayMetrics
 import android.webkit.URLUtil
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -237,6 +238,13 @@ object ModelUtils {
             }
         }
         return ""
+    }
+
+    fun dp2px(context: Context, dp: Int): Int {
+        val resources = context.resources
+        val metrics = resources.displayMetrics
+        val px = dp.toFloat() * (metrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)
+        return px.toInt()
     }
 
 }

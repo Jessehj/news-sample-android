@@ -21,7 +21,15 @@ interface ArticleAPI {
     @GET("/${BuildConfig.API_VERSION}/${AppConstants.Headline.uri}")
     fun getTopHeadlines(@QueryMap params: MutableMap<String, String>): Call<JsonObject>
 
+    @GET("/${BuildConfig.API_VERSION}/${AppConstants.Everything.uri}")
+    fun getArticles(@QueryMap params: MutableMap<String, String>): Call<JsonObject>
+
     interface TopHeadlinesCompletion {
+        fun onSuccess(articles: MutableList<Article>)
+        fun onError(error: Error)
+    }
+
+    interface ArticlesCompletion {
         fun onSuccess(articles: MutableList<Article>)
         fun onError(error: Error)
     }
@@ -29,7 +37,12 @@ interface ArticleAPI {
     companion object {
         private val api = RetrofitClient.get().create(ArticleAPI::class.java)
 
-        fun loadTopHeadlines(page: Int, q: String?, filter: ArticleFilter, completion: TopHeadlinesCompletion) {
+        fun loadTopHeadlines(
+            page: Int,
+            filter: ArticleFilter,
+            q: String?,
+            completion: TopHeadlinesCompletion
+        ) {
             val params = mutableMapOf<String, String>()
             params[AppConstants.Commons.page] = page.toString()
             q?.let { params[AppConstants.Commons.q] = it }
@@ -39,6 +52,43 @@ interface ArticleAPI {
             }
 
             RetrofitService<JsonObject>().request(api.getTopHeadlines(params),
+                object : RetrofitService.Completion {
+                    override fun onSuccess(response: Any?) {
+                        if (response is JsonObject) {
+                            val articlesJson =
+                                response.get(AppConstants.Article.articles) as JsonArray
+                            val articles =
+                                ModelUtils.parseJson<MutableList<Article>>(articlesJson.toString())?.let {
+                                    it
+                                } ?: mutableListOf()
+
+                            completion.onSuccess(articles)
+                        } else {
+                            completion.onError(Error("Response Error"))
+                        }
+                    }
+
+                    override fun onError(error: Error) {
+                        completion.onError(error)
+                    }
+                })
+        }
+
+        fun loadArticles(
+            page: Int,
+            filter: ArticleFilter,
+            q: String?,
+            completion: ArticlesCompletion
+        ) {
+            val params = mutableMapOf<String, String>()
+            params[AppConstants.Commons.page] = page.toString()
+            q?.let { params[AppConstants.Commons.q] = it }
+            filter.apply {
+                this.sourceId?.let { params[AppConstants.Everything.sources] = it }
+            }
+
+            RetrofitService<JsonObject>().request(
+                ArticleAPI.api.getArticles(params),
                 object : RetrofitService.Completion {
                     override fun onSuccess(response: Any?) {
                         if (response is JsonObject) {

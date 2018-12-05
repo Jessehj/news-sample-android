@@ -18,72 +18,42 @@
         app:contentInsetStartWithNavigation="0dp"
         app:title="@string/title_sources"/>
 
-    <android.support.design.widget.CoordinatorLayout
-        android:id="@+id/toolbarCoordinatorLayout"
+    <FrameLayout
+        android:id="@+id/bodyLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:background="@color/colorGrayLight"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <android.support.design.widget.AppBarLayout
-            android:id="@+id/toolbarAppBarLayout"
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/loadingView"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="32dp"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="newspaper_animation.json"
+            app:lottie_loop="true"/>
+
+        <TextView
+            android:id="@+id/emptyTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="32dp"
+            android:text="@string/msg_data_not_found"
+            android:textColor="@color/colorGrayDark"
+            android:textSize="20sp"
+            android:visibility="gone"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/sourceRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/colorGrayLight">
+            tools:listitem="@layout/list_item_source"/>
 
-            <android.support.design.widget.CollapsingToolbarLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_scrollFlags="scroll|enterAlways"
-                app:titleEnabled="false">
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:text="test"/>
-
-            </android.support.design.widget.CollapsingToolbarLayout>
-
-        </android.support.design.widget.AppBarLayout>
-
-        <FrameLayout
-            android:id="@+id/bodyLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/colorGrayLight"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-            <com.airbnb.lottie.LottieAnimationView
-                android:id="@+id/loadingView"
-                android:layout_width="160dp"
-                android:layout_height="160dp"
-                android:layout_gravity="center"
-                android:layout_marginBottom="32dp"
-                app:lottie_autoPlay="true"
-                app:lottie_fileName="newspaper_animation.json"
-                app:lottie_loop="true"/>
-
-            <TextView
-                android:id="@+id/emptyTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="32dp"
-                android:text="@string/msg_data_not_found"
-                android:textColor="@color/colorGrayDark"
-                android:textSize="20sp"
-                android:visibility="gone"/>
-
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/sourceRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:listitem="@layout/list_item_source"/>
-
-        </FrameLayout>
-
-    </android.support.design.widget.CoordinatorLayout>
+    </FrameLayout>
 
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/bottomNavigation"

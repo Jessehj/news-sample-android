@@ -1,4 +1,4 @@
-package jessehj.newssample.util
+package jessehj.newssample.view.listener
 
 import android.text.Editable
 import android.text.TextWatcher

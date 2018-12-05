@@ -9,6 +9,7 @@ interface SourcePresentationLogic {
     fun presentProgress()
     fun dismissProgress()
     fun presentError(errMsg: String)
+    fun routeToArticleList()
 }
 
 class SourcePresenter : SourcePresentationLogic {
@@ -39,5 +40,9 @@ class SourcePresenter : SourcePresentationLogic {
 
     override fun presentError(errMsg: String) {
         activity.get()?.displayError(errMsg)
+    }
+
+    override fun routeToArticleList() {
+        activity.get()?.routeToArticleList()
     }
 }

@@ -1,4 +1,4 @@
-package jessehj.newssample.scene.headline
+package jessehj.newssample.scene.list
 
 import com.google.gson.Gson
 import jessehj.newssample.base.AppManager
@@ -8,28 +8,33 @@ import jessehj.newssample.network.apis.ArticleAPI
 import jessehj.newssample.util.ModelUtils
 
 
-interface HeadlineBusinessLogic : HeadlineDataPassing, HeadlineDataStore {
-    fun fetchHeadlineData(request: Headline.HeadlineData.Request)
-    fun fetchFilterData(request: Headline.FilterData.Request)
-    fun fetchDetailData(request: Headline.DetailData.Request)
+interface ListBusinessLogic : ListDataPassing, ListDataStore {
+    fun fetchListData(request: List.ListData.Request)
+    fun fetchFilterData(request: List.FilterData.Request)
+    fun fetchDetailData(request: List.DetailData.Request)
 }
 
-interface HeadlineDataPassing {
-    // fun setPassedData(Obj: Any)
+interface ListDataPassing {
+    fun passSourceId(sourceId: String)
 }
 
-interface HeadlineDataStore {
+interface ListDataStore {
     fun articleJson(): String
 }
 
-class HeadlineInteractor : HeadlineBusinessLogic {
+class ListInteractor : ListBusinessLogic {
 
-    lateinit var presenter: HeadlinePresentationLogic
-    private var worker = HeadlineWorker()
+    lateinit var presenter: ListPresentationLogic
+    private var worker = ListWorker()
     private var articleFilter = ArticleFilter()
     private var articles = mutableListOf<Article>()
+    private var sourceId: String? = null
     private var curPage = 1
     private lateinit var selectedArticle: Article
+
+    override fun passSourceId(sourceId: String) {
+        this@ListInteractor.sourceId = sourceId
+    }
 
     override fun articleJson(): String {
         return if (::selectedArticle.isInitialized) {
@@ -39,31 +44,31 @@ class HeadlineInteractor : HeadlineBusinessLogic {
         }
     }
 
-    override fun fetchHeadlineData(request: Headline.HeadlineData.Request) {
+    override fun fetchListData(request: List.ListData.Request) {
         if (request.refresh) {
             curPage = 1
         }
         presenter.setPagingEnabled(false)
-        ArticleAPI.loadTopHeadlines(
+        ArticleAPI.loadArticles(
             curPage,
             articleFilter,
             request.keyword,
-            object : ArticleAPI.TopHeadlinesCompletion {
+            object : ArticleAPI.ArticlesCompletion {
                 override fun onSuccess(articles: MutableList<Article>) {
                     if (request.refresh) {
-                        this@HeadlineInteractor.articles = articles
+                        this@ListInteractor.articles = articles
                         presenter.refreshComplete()
                     } else {
-                        this@HeadlineInteractor.articles.addAll(articles)
+                        this@ListInteractor.articles.addAll(articles)
                     }
                     curPage++
                     presenter.setPagingEnabled(articles.isNotEmpty())
 
-                    Headline.HeadlineData.Response().apply {
+                    List.ListData.Response().apply {
                         context = request.context
                         this.articles = articles
                         refresh = request.refresh
-                        presenter.presentHeadlineData(this)
+                        presenter.presentListData(this)
                     }
 
                     presenter.dismissProgress()
@@ -77,13 +82,15 @@ class HeadlineInteractor : HeadlineBusinessLogic {
             })
     }
 
-    override fun fetchFilterData(request: Headline.FilterData.Request) {
+    override fun fetchFilterData(request: List.FilterData.Request) {
         val filterJson = AppManager.getArticleFilter(request.context)
         articleFilter = ModelUtils.parseJson<ArticleFilter>(filterJson)?.let { it } ?:
                 ArticleFilter()
+
+        articleFilter.sourceId = sourceId
     }
 
-    override fun fetchDetailData(request: Headline.DetailData.Request) {
+    override fun fetchDetailData(request: List.DetailData.Request) {
         selectedArticle = articles[request.position]
         presenter.routeToArticleDetail()
     }

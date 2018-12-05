@@ -1,11 +1,11 @@
 package jessehj.newssample.scene.source
 
-import android.content.Intent
+import jessehj.newssample.scene.list.listIntent
 import java.lang.ref.WeakReference
 
 
 interface SourceRoutingLogic {
-    fun navigateToSomewhere(): Intent
+    fun navigateToArticleList()
 }
 
 class SourceRouter : SourceRoutingLogic {
@@ -13,8 +13,9 @@ class SourceRouter : SourceRoutingLogic {
     lateinit var activity: WeakReference<SourceActivity>
     lateinit var dataStore: SourceDataStore
 
-    override fun navigateToSomewhere(): Intent {
-        val intent = Intent()
-        return intent
+    override fun navigateToArticleList() {
+        activity.get()?.apply {
+            startActivity(listIntent(dataStore.sourceId()))
+        }
     }
 }

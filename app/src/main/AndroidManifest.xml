@@ -17,18 +17,22 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
 
-        <activity android:name=".MainActivity">
-
-        </activity>
-        <activity android:name=".scene.headline.HeadlineActivity">
+        <activity
+            android:name=".scene.headline.HeadlineActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".scene.source.SourceActivity"/>
-        <activity android:name=".scene.detail.DetailActivity"/>
+        <activity
+            android:name=".scene.source.SourceActivity"
+            android:screenOrientation="portrait"/>
+        <activity
+            android:name=".scene.detail.DetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".scene.list.ListActivity"/>
     </application>
 
 </manifest>

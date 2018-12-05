@@ -1,4 +1,4 @@
-package jessehj.newssample.view
+package jessehj.newssample.view.custom
 
 import android.annotation.TargetApi
 import android.content.Context

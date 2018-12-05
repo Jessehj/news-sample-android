@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".scene.headline.HeadlineActivity">
+    tools:context=".scene.list.ListActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -16,7 +16,7 @@
         android:gravity="center"
         android:theme="@style/ToolbarStyleDark"
         app:contentInsetStartWithNavigation="0dp"
-        app:title="@string/title_headlines"/>
+        app:title="@string/title_article_list"/>
 
     <android.support.design.widget.CoordinatorLayout
         android:id="@+id/toolbarCoordinatorLayout"
@@ -102,18 +102,13 @@
                     android:id="@+id/articleRecyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    tools:listitem="@layout/list_item_article"/>
+                    android:background="@color/colorGrayLight"
+                    tools:listitem="@layout/list_item_article_simple"/>
 
             </FrameLayout>
 
         </android.support.v4.widget.SwipeRefreshLayout>
 
     </android.support.design.widget.CoordinatorLayout>
-
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/bottomNavigation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:menu="@menu/bottom_navigation"/>
 
 </LinearLayout>

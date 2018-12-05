@@ -17,7 +17,7 @@ interface SourceDataPassing {
 }
 
 interface SourceDataStore {
-    // fun getData(): Any
+    fun sourceId(): String?
 }
 
 class SourceInteractor : SourceBusinessLogic {
@@ -26,11 +26,20 @@ class SourceInteractor : SourceBusinessLogic {
     private var worker = SourceWorker()
     private var sourceFilter = SourceFilter()
     private var sources = mutableListOf<jessehj.newssample.entity.source.Source>()
+    private lateinit var selectedSource: jessehj.newssample.entity.source.Source
+
+    override fun sourceId(): String? {
+        return if (::selectedSource.isInitialized) {
+            selectedSource.id
+        } else {
+            null
+        }
+    }
 
     override fun fetchSourceData(request: Source.SourceData.Request) {
         presenter.presentProgress()
 
-        SourceAPI.loadSources(sourceFilter, object: SourceAPI.SourcesCompletion {
+        SourceAPI.loadSources(sourceFilter, object : SourceAPI.SourcesCompletion {
             override fun onSuccess(sources: MutableList<jessehj.newssample.entity.source.Source>) {
                 this@SourceInteractor.sources = sources
 
@@ -55,6 +64,7 @@ class SourceInteractor : SourceBusinessLogic {
     }
 
     override fun fetchDetailData(request: Source.DetailData.Request) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        selectedSource = sources[request.position]
+        presenter.routeToArticleList()
     }
 }

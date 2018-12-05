@@ -5,6 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    app:cardBackgroundColor="@color/colorWhiteDark"
     app:cardCornerRadius="8dp"
     app:cardPreventCornerOverlap="true"
     app:cardUseCompatPadding="true"
@@ -15,7 +17,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <jessehj.newssample.view.SquareImageView
+        <jessehj.newssample.view.custom.SquareImageView
             android:id="@+id/sourceImageView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
