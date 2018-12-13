@@ -48,7 +48,9 @@ interface ArticleAPI {
             params[AppConstants.Commons.page] = page.toString()
             q?.let { params[AppConstants.Commons.q] = it }
             filter.apply {
-                this.category?.value?.let { params[AppConstants.Headline.category] = it }
+                if (this.category != AppConstants.Category.All) {
+                    this.category?.value?.let { params[AppConstants.Headline.category] = it }
+                }
                 params[AppConstants.Headline.country] = this.country.value
             }
 

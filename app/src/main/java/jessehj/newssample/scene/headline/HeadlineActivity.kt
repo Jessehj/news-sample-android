@@ -191,7 +191,7 @@ class HeadlineActivity : BaseActivity(), HeadlineDisplayLogic,
     }
 
     // FilterDialogFragment.OnFragmentInteractionListener:
-    override fun onDismissDialog(category: AppConstants.Category?, country: AppConstants.Country) {
+    override fun onDismissDialog(category: AppConstants.Category, country: AppConstants.Country) {
         fetchFilterData(category, country)
         fetchHeadlineData(true)
     }

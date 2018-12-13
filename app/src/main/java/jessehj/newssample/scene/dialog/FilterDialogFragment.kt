@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_filter_dialog.view.*
 class FilterDialogFragment : BottomSheetDialogFragment() {
 
     interface OnFragmentInteractionListener {
-        fun onDismissDialog(category: AppConstants.Category?, country: AppConstants.Country)
+        fun onDismissDialog(category: AppConstants.Category, country: AppConstants.Country)
     }
 
     companion object {
@@ -38,7 +38,7 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
         }
     }
 
-    private var category: AppConstants.Category? = null
+    private lateinit var category: AppConstants.Category
     private lateinit var country: AppConstants.Country
 
     private var listener: OnFragmentInteractionListener? = null
@@ -48,6 +48,8 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
         arguments?.apply {
             this.getSerializable(ARG_CATEGORY)?.let {
                 category = it as AppConstants.Category
+            } ?: run {
+                category = AppConstants.Category.All
             }
 
             this.getSerializable(ARG_COUNTRY)?.let {
@@ -115,7 +117,7 @@ class FilterDialogFragment : BottomSheetDialogFragment() {
                     R.id.scienceRadioButton -> AppConstants.Category.Science
                     R.id.sportsRadioButton -> AppConstants.Category.Sports
                     R.id.techRadioButton -> AppConstants.Category.Technology
-                    else -> null
+                    else -> AppConstants.Category.All
                 }
             }
 

@@ -70,6 +70,7 @@ object AppConstants {
     }
 
     enum class Category(val tag: String, val value: String) {
+        All("All", ""),
         Business("Business", "business"),
         Entertainment("Entertainment", "entertainment"),
         General("General", "general"),

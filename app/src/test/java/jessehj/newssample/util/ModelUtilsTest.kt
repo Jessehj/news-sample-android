@@ -2,6 +2,7 @@ package jessehj.newssample.util
 
 import jessehj.newssample.R
 import jessehj.newssample.base.AppConstants
+import jessehj.newssample.entity.filter.ArticleFilter
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -20,6 +21,34 @@ import java.util.*
 )
 @RunWith(RobolectricTestRunner::class)
 class ModelUtilsTest {
+
+    @Test
+    fun modelUtils_parseJson_test() {
+        val jsonString = "{\"category\":\"All\",\"country\":\"Korea\"}"
+        val obj = ModelUtils.parseJson<ArticleFilter>(jsonString)
+
+        val mockObj = ArticleFilter().apply {
+            category = AppConstants.Category.All
+            country = AppConstants.Country.Korea
+        }
+
+        Assert.assertSame(obj!!.category, mockObj.category)
+        Assert.assertSame(obj.country, mockObj.country)
+    }
+
+    @Test
+    fun modelUtils_parseJson_with_unnecessary_field_test() {
+        val jsonString = "{\"category\":\"All\",\"country\":\"Korea\",\"country2\":\"Korea22\"}"
+        val obj = ModelUtils.parseJson<ArticleFilter>(jsonString)
+
+        val mockObj = ArticleFilter().apply {
+            category = AppConstants.Category.All
+            country = AppConstants.Country.Korea
+        }
+
+        Assert.assertSame(obj!!.category, mockObj.category)
+        Assert.assertSame(obj.country, mockObj.country)
+    }
 
     @Test
     fun modelUtils_articleDate_test() {
@@ -85,6 +114,4 @@ class ModelUtilsTest {
         val result = ModelUtils.validUrl("")
         Assert.assertNull(result)
     }
-
-
 }
